@@ -1,0 +1,6 @@
+Homework: 1
+Grade: 9.5
+Delivered in week: 6
+Deadline: 7
+Feedback: partially done
+
