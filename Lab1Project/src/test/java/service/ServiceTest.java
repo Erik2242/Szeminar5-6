@@ -24,6 +24,11 @@ class ServiceTest {
     private static final String STUDENT_ID = "2";
     private static final String NAME = "Jancsi";
     private static final int GROUP = 522;
+    private static final String HOMEWORK_ID = "12";
+    private static final String HOMEWORK_NAME = "homework description1";
+    private static final int HOMEWORK_DEADLINE = 6;
+    private static final int HOMEWORK_STARTLINE = 4;
+
 
     @BeforeAll
     static void setUp() {
@@ -68,6 +73,34 @@ class ServiceTest {
             }
         }
         Assertions.assertTrue(foundHomework);
+    }
+
+    @Test
+    public void addHomework() {
+        service.saveHomework(HOMEWORK_ID, HOMEWORK_NAME, HOMEWORK_DEADLINE, HOMEWORK_STARTLINE);
+        Iterable<Homework> homeworks = service.findAllHomework();
+        boolean foundHomework = false;
+        for (Homework homework : homeworks) {
+            if (Objects.equals(homework.getID(), HOMEWORK_ID)) {
+                foundHomework = true;
+                break;
+            }
+        }
+        Assertions.assertTrue(foundHomework);
+    }
+
+    @Test
+    void shouldDeleteHomework() {
+        Iterable<Homework> allHomework = service.findAllHomework();
+        service.deleteHomework(HOMEWORK_ID);
+        boolean wasDeleted = true;
+        for (Homework homework : allHomework) {
+            if (Objects.equals(homework.getID(), HOMEWORK_ID)) {
+                wasDeleted = false;
+                break;
+            }
+        }
+        Assertions.assertTrue(wasDeleted);
     }
 
     @Test
